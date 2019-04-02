@@ -16,7 +16,7 @@ import java.util.*;
  * @description com.ccy.easyzhihu.controller
  * @date 2019/3/23
  */
-@Controller
+//@Controller
 public class IndexController {
 
     @RequestMapping(path={"/"})
