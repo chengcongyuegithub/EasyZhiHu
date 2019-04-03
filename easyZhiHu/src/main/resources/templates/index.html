@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header::commonHeader('牛客主页')">
 </head>
+<link rel="stylesheet" href="../styles/index.css">
+<link rel="stylesheet" href="../styles/detail.css">
 <body class="zhi ">
     <div th:replace="header::commonNav"></div>
     <div class="zu-global-notify" id="zh-global-message" style="display:none">
@@ -197,4 +199,8 @@
             <div class="tooltip-arrow arrow"></div>
             <div class="tooltip-inner inner">如需转载，请通过私信或评论联系我</div></div>
     </div>
-</body></html>
+
+</body>
+<footer th:replace="footer::foot">
+</footer>
+</html>

@@ -1,5 +1,6 @@
 package com.ccy.easyzhihu.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,21 @@ import java.security.MessageDigest;
 public class ZhiHuUtil {
     private static final Logger logger=
             LoggerFactory.getLogger(ZhiHuUtil.class);
+
+    public static String getObjectJson(int code)
+    {
+        JSONObject json=new JSONObject();
+        json.put("code",code);
+        return json.toJSONString();
+    }
+
+    public static String getJSONString(int code,String msg)
+    {
+        JSONObject json=new JSONObject();
+        json.put("code",code);
+        json.put("msg",msg);
+        return json.toJSONString();
+    }
 
     public static String MD5(String key) {
         char hexDigits[] = {
