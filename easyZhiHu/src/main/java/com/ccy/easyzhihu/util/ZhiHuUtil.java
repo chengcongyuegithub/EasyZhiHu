@@ -16,6 +16,8 @@ public class ZhiHuUtil {
     private static final Logger logger=
             LoggerFactory.getLogger(ZhiHuUtil.class);
 
+    public static final int ANONYMOUS_USERID=999;
+
     public static String getObjectJson(int code)
     {
         JSONObject json=new JSONObject();
