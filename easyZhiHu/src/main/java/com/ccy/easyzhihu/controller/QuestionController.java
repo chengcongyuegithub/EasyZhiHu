@@ -1,20 +1,21 @@
 package com.ccy.easyzhihu.controller;
 
 import com.ccy.easyzhihu.Dao.QuestionDAO;
+import com.ccy.easyzhihu.Service.CommentService;
 import com.ccy.easyzhihu.Service.QuestionService;
-import com.ccy.easyzhihu.model.HostHolder;
-import com.ccy.easyzhihu.model.Question;
+import com.ccy.easyzhihu.Service.UserService;
+import com.ccy.easyzhihu.model.*;
 import com.ccy.easyzhihu.util.ZhiHuUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author chengcongyue
@@ -31,7 +32,10 @@ public class QuestionController {
     private HostHolder hostHolder;
     @Autowired
     private QuestionService questionService;
-
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserService userService;
     @RequestMapping(path = {"/question/add"},method = RequestMethod.POST)
     @ResponseBody
     public String addQuestion(@RequestParam("title")String title,@RequestParam("content")String content)
@@ -57,5 +61,24 @@ public class QuestionController {
              logger.error("增加题目失败"+e.getMessage());
         }
         return ZhiHuUtil.getJSONString(1,"失败");
+    }
+
+    @RequestMapping(path = {"/question/{id}"},method = RequestMethod.GET)
+    public String questionDetail(Model model,@PathVariable("id")String id)
+    {
+        //System.out.println("question id is "+id);
+        Question question = questionService.getQuestionById(id);
+        model.addAttribute("question",question);
+        List<Comment> commentList = commentService.getCommentsByEntity(Integer.parseInt(id), EntityType.ENTITY_QUESTION);
+        List<VeiwObject> vos=new ArrayList<>();
+        for(Comment comment:commentList)
+        {
+            VeiwObject vo=new VeiwObject();
+            vo.set("comment",comment);
+            vo.set("user",userService.getUser(comment.getUserId()));
+            vos.add(vo);
+        }
+        model.addAttribute("comments",vos);
+        return "detail";
     }
 }

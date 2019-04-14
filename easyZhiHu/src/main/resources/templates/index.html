@@ -45,7 +45,7 @@
                                         <meta itemprop="answer-id" content="389034">
                                         <meta itemprop="answer-url-token" content="13174385">
                                         <h2 class="feed-title">
-                                            <a class="question_link" target="_blank" href="https://nowcoder.com/question/19857995#answer-389034"><span th:text="${ls.get('question').getTitle()}"></span></a></h2>
+                                            <a class="question_link" target="_blank" th:href="@{/question/{questionId}(questionId=${ls.get('question').id})}"><span th:text="${ls.get('question').getTitle()}"></span></a></h2>
                                         <div class="feed-question-detail-item">
                                             <div class="question-description-plain zm-editable-content"></div>
                                         </div>
@@ -87,7 +87,7 @@
                                                     <a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">
                                                         <i class="z-icon-follow"></i>关注问题</a>
                                                     <a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-                                                        <i class="z-icon-comment"></i>69 条评论</a>
+                                                        <i class="z-icon-comment"></i><span th:text="${ls.get('question').getCommentCount()}"></span></a>
                                                     <a href="#" class="meta-item js-thank" data-thanked="false">
                                                         <i class="z-icon-thank"></i>感谢</a>
 
